@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 17:15:21 by sadoming          #+#    #+#             */
-/*   Updated: 2023/09/11 11:52:53 by sadoming         ###   ########.fr       */
+/*   Updated: 2023/09/11 18:01:11 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	main(void)
 	int		fd1, fd2, fd3, fd4, fd5, fd6;
 	int		res[40];
 	int		a;
-	int		line;
 
 	/**/
 	printf("\033[1;34m\t     ~ Made by Sadoming ~\n");
@@ -49,17 +48,17 @@ int	main(void)
 	printf("{~~~~~~~~~~~~~~~}\n\n");
 	cc('w');
 	/**/
-	line = 0;
 	a = 0;
-	res[a++] = read_line(fd1, "one line\n", line, "onln.txt");
-	res[a++] = read_line(fd2, "0123456789\n", line, "twln.txt");
+	res[a++] = read_line(fd1, "one line\n", 0, "onln.txt");
+	res[a++] = read_line(fd2, "0123456789\n", 0, "twln.txt");
 	//res[a++] = read_line(fd1, NULL, 1, "onln.txt");
 	res[a++] = read_line(fd2, "9876543210\n", 1, "twln.txt");
-	res[a++] = read_line(fd3, "a", line, "onechar.txt");
-	res[a++] = read_line(fd4, NULL, line, "empty.txt");
-	while (a < 10)
-		res[a++] = read_line(fd5, "\n", line++, "mutnl.txt");
-	res[a++] = read_line(fd5, NULL, line, "mutnl.txt");
+	res[a++] = read_line(fd3, "a", 0, "onechar.txt");
+	res[a++] = read_line(fd3, NULL, 1, "onechar.txt");
+	res[a++] = read_line(fd4, NULL, 0, "empty.txt");
+	while (a < 11)
+		res[a++] = read_line(fd5, "\n", 0, "mutnl.txt");
+	res[a++] = read_line(fd5, NULL, 0, "mutnl.txt");
 	res[a++] = read_line(fd6, "0123456789012345678901234567890123456789\n", 0, "41_with_nl.txt");
 	res[a++] = read_line(fd6, "0", 1, "41_with_nl.txt");
 	res[a++] = read_line(fd6, NULL, 2, "41_with_nl.txt");

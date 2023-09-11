@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/31 17:06:43 by sadoming          #+#    #+#             */
-/*   Updated: 2023/09/11 20:06:04 by sadoming         ###   ########.fr       */
+/*   Created: 2023/09/11 20:06:15 by sadoming          #+#    #+#             */
+/*   Updated: 2023/09/11 20:13:09 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_free(char *to_free, char *tmp)
 {
@@ -67,27 +67,27 @@ char	*ft_get_readed(int fd, char *store)
 
 char	*get_next_line(int fd)
 {
-	static char	*store;
+	static char	*store[4096];
 	char		*line;
 	size_t		cnt;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	store = ft_get_readed(fd, store);
-	if (!store)
-		return (ft_free(store, 0));
-	if (ft_strlen(store) == 0)
+	store[fd] = ft_get_readed(fd, store[fd]);
+	if (!store[fd])
+		return (ft_free(store[fd], 0));
+	if (ft_strlen(store[fd]) == 0)
 	{
-		store = ft_free(store, 0);
+		store[fd] = ft_free(store[fd], 0);
 		return (NULL);
 	}
-	cnt = ft_cnt_tojump(store);
-	line = ft_strdup(store, cnt);
+	cnt = ft_cnt_tojump(store[fd]);
+	line = ft_strdup(store[fd], cnt);
 	if (!line)
 	{
-		store = ft_free(store, 0);
+		store[fd] = ft_free(store[fd], 0);
 		return (NULL);
 	}
-	store = ft_strtrim(store);
+	store[fd] = ft_strtrim(store[fd]);
 	return (line);
 }

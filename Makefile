@@ -6,23 +6,25 @@
 #    By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/31 17:32:13 by sadoming          #+#    #+#              #
-#    Updated: 2023/09/11 13:09:04 by sadoming         ###   ########.fr        #
+#    Updated: 2023/09/11 20:17:47 by sadoming         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = getnextline.a
 TEST = test.out
-CFLAGS = -Wall -Wextra -Werror -D BUFFER_SIZE=2
+CFLAGS = -Wall -Wextra -Werror -D BUFFER_SIZE=9999
 
 # Sources:
 MAK = Makefile
-LIB = get_next_line.h
+LIB = get_next_line.h get_next_line_bonus.c
 TLIB = test_getnextline.h
 
 SRC = get_next_line.c get_next_line_utils.c
+BNS = get_next_line_bonus.c get_next_line_utils_bonus.c
 TSRC = test_getnextline_main.c test_utils.c
 
 OBJ = $(patsubst %.c, %.o, $(SRC))
+OBJB = $(patsubst %.c, %.o, $(BNS))
 TOBJ = $(patsubst %.c, %.o, $(TSRC)) $(TLIB)
 #------------------------------------------------------------------------------#
 
@@ -34,6 +36,9 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	ar rc $(NAME) $(OBJ)
 
+bonus: $(OBJB)
+	ar rc $(NAME) $(OBJB)
+
 # make test.out:
 $(TEST): $(OBJ) $(TOBJ) 
 	@echo "\n\033[1;93m~ Norminette:"
@@ -44,7 +49,7 @@ $(TEST): $(OBJ) $(TOBJ)
 
 # ./test.out:
 test: $(TEST)
-	@leaks --atExit -- ./$(TEST)
+	@valgrind ./$(TEST)
 
 # ******************************************************************************* #
 # lldb:
@@ -65,11 +70,12 @@ clean:
 
 fclean: clean
 	@/bin/rm -f $(NAME)
+	@/bin/rm -frd test.out.dSYM
 	@/bin/rm -frd debug.out.dSYM
 
 clear: fclean
 	@clear
 # -------------------- #
-.PHONY: all clean clear debug test
+.PHONY: all clean clear fclean debug test
 
 # ********************************************************************************** #
