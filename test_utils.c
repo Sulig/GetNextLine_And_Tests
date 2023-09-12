@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 13:38:07 by sadoming          #+#    #+#             */
-/*   Updated: 2023/09/08 18:45:59 by sadoming         ###   ########.fr       */
+/*   Updated: 2023/09/12 20:16:41 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,19 @@ void	cc(char color)
 		printf("\033[1;36m");
 }
 
-int	look4ko(char *you, char *exp, char *fd, int line)
+size_t	my_strlen(const char *s)
+{
+	size_t	counter;
+
+	counter = 0;
+	if (!s)
+	  return (0);
+	while (s[counter] != '\0')
+		counter++;
+	return (counter);
+}
+
+int		look4ko(char *you, char *exp)
 {
 	int		ok;
 	int		len;
@@ -45,8 +57,6 @@ int	look4ko(char *you, char *exp, char *fd, int line)
 
 	ok = 1;
 	cnt = 0;
-	cc('w');
-	printf("Fd = |%s| ~ Line |%i|\t", fd, line);
 	if ((!exp && you) || (exp && !you))
 		ok = 0;
 	len = ft_strlen(exp) + 1;
@@ -64,9 +74,9 @@ int	look4ko(char *you, char *exp, char *fd, int line)
 	else
 	{
 		cc('R');
-		printf(" \t\t~ |KO!| ~\n");
+		printf(" \t\t~ |KO!| ~\t In pos: |%i|\n", cnt);
 		printf("You don't return the expected! ->\n");
-		printf("Org |Len = %zu|~|%s|\nYou |Len = %zu|~|%s|\n", ft_strlen(exp), exp, ft_strlen(you), you);
+		printf("Org |Len = %zu|~|%s|\nYou |Len = %zu|~|%s|\n", my_strlen(exp), exp, my_strlen(you), you);
 		printf("!! ----------------------------------- !!");
 	}
 	cc('W');
@@ -74,45 +84,39 @@ int	look4ko(char *you, char *exp, char *fd, int line)
 	return (ok);
 }
 
-int	resume(int len, ...)
+int	resume(int len, int *res)
 {
-	va_list	args;
 	int		cnt;
-	int		res;
-	int		now;
+	int		ok;
 
 	cnt = 0;
-	res = 0;
-	va_start(args, len);
+	ok = 1;
 	cc('C');
 	printf("|---------- - >\n");
 	printf("| Tests Resume: ");
 	while (cnt < len)
 	{
-		now = va_arg(args, int);
-		if (now == 1)
+		if (res[cnt] == 1)
 		{
 			cc('G');
 			printf("|OK| ");
-			res++;
 		}
-		else if (now == 0)
+		else if (res[cnt] == 0)
 		{
 			cc('R');
 			printf("|KO| ");
+			ok = 0;
 		}
 		else
 		{
 			cc('Y');
-			printf("|%i| ", now);
+			printf("|%i| ", res[cnt]);
 		}
 		cnt++;
 	}
-	va_end(args);
 	cc('C');
 	printf("\n{~~~~~~~~~~~~~~~}");
-	/**/
-	if (res == len)
+	if (ok == 1)
 	{
 		cc('g');
 		printf("\t   |All tests are OK!|\n");

@@ -6,13 +6,13 @@
 #    By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/31 17:32:13 by sadoming          #+#    #+#              #
-#    Updated: 2023/09/11 20:17:47 by sadoming         ###   ########.fr        #
+#    Updated: 2023/09/12 19:50:04 by sadoming         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = getnextline.a
 TEST = test.out
-CFLAGS = -Wall -Wextra -Werror -D BUFFER_SIZE=9999
+CFLAGS = -Wall -Wextra -Werror -D BUFFER_SIZE=10
 
 # Sources:
 MAK = Makefile
@@ -49,7 +49,8 @@ $(TEST): $(OBJ) $(TOBJ)
 
 # ./test.out:
 test: $(TEST)
-	@valgrind ./$(TEST)
+	@leaks -atExit -- ./$(TEST)
+	@make clean
 
 # ******************************************************************************* #
 # lldb:
@@ -61,6 +62,10 @@ $(DEB): $(DEBB)
 
 debug: $(DEB)
 	@lldb $(DEB)
+
+valgrind: $(DEB)
+	@gcc -g $(FLAGS) -o $(DEB) $(DEBB)
+	@valgrind ./$(DEB)
 
 # ********************************************************************************* #
 clean:
@@ -76,6 +81,6 @@ fclean: clean
 clear: fclean
 	@clear
 # -------------------- #
-.PHONY: all clean clear fclean debug test
+.PHONY: all clean clear fclean debug test valgrind
 
 # ********************************************************************************** #
