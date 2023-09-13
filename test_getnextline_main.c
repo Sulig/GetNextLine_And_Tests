@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 17:15:21 by sadoming          #+#    #+#             */
-/*   Updated: 2023/09/13 14:27:43 by sadoming         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:33:51 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,23 @@ static int	read_line(int fd, char *exp, int line, char *txt)
 	return (ret);
 }
 
-int	main(void)
+static void manual_test(char *txt)
+{
+	char	*str;
+	int		fd;
+
+	fd = open(txt, O_RDONLY);
+	str = get_next_line(fd);
+	cc('w');
+	printf("~ Manual test from file |%s|\nOutput -> |%s|\n", txt, str);
+	free(str);
+}
+
+int	main(int argc, char **argv)
 {
 	int		fd1, fd2, fd3, fd4, fd5, fd6;
 	int		res[40];
+	int		cnt;
 	int		a;
 
 	/**/
@@ -74,6 +87,18 @@ int	main(void)
 	close(fd6);
 	/**/
 	sep(0);
+	/**/
+	cc('c');
+	cnt = 1;
+	if (argc > 1)
+	{
+		while (cnt < argc)
+			manual_test(argv[cnt++]);
+	}
+	else
+		printf("~! For manual test of some *.txt, introduce it itself in ./test.out\t |Argc: %i|\n", argc);
+	sep(0);
+	/**/
 	printf("\033[1;95m \n");
 	return (0);
 }
