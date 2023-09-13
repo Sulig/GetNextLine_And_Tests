@@ -6,7 +6,7 @@
 #    By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/31 17:32:13 by sadoming          #+#    #+#              #
-#    Updated: 2023/09/12 19:50:04 by sadoming         ###   ########.fr        #
+#    Updated: 2023/09/13 15:44:28 by sadoming         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,11 +21,13 @@ TLIB = test_getnextline.h
 
 SRC = get_next_line.c get_next_line_utils.c
 BNS = get_next_line_bonus.c get_next_line_utils_bonus.c
-TSRC = test_getnextline_main.c test_utils.c
+
+TSRC = test_getnextline_main.c test_utils.c $(SRC)
+TSRB = test_getnextline_main.c test_utils.c $(BNS)
 
 OBJ = $(patsubst %.c, %.o, $(SRC))
 OBJB = $(patsubst %.c, %.o, $(BNS))
-TOBJ = $(patsubst %.c, %.o, $(TSRC)) $(TLIB)
+TOBJ = $(patsubst %.c, %.o, $(TSRC)) $(LIB)
 #------------------------------------------------------------------------------#
 
 all: $(NAME)
@@ -43,14 +45,15 @@ bonus: $(OBJB)
 $(TEST): $(OBJ) $(TOBJ) 
 	@echo "\n\033[1;93m~ Norminette:"
 	@norminette $(SRC)
+	@norminette $(BNS)
 	@echo "\033[0;37m\n"
-	@gcc $(CFLAGS) -o $(TEST) *.o
+	@gcc $(CFLAGS) -D TBNS=0 -o $(TEST) *.o
 	@echo * "\n"
 
 # ./test.out:
 test: $(TEST)
 	@leaks -atExit -- ./$(TEST)
-	@make clean
+	@/bin/rm -f *.o
 
 # ******************************************************************************* #
 # lldb:
@@ -71,12 +74,14 @@ valgrind: $(DEB)
 clean:
 	@/bin/rm -f *.o
 	@/bin/rm -f $(TEST)
+	@/bin/rm -f $(TBO)
 	@/bin/rm -f $(DEB)
 
 fclean: clean
 	@/bin/rm -f $(NAME)
 	@/bin/rm -frd test.out.dSYM
 	@/bin/rm -frd debug.out.dSYM
+	@/bin/rm -f .DS_Store
 
 clear: fclean
 	@clear

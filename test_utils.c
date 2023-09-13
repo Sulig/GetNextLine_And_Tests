@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 13:38:07 by sadoming          #+#    #+#             */
-/*   Updated: 2023/09/12 20:16:41 by sadoming         ###   ########.fr       */
+/*   Updated: 2023/09/13 13:35:57 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,22 @@ size_t	my_strlen(const char *s)
 	while (s[counter] != '\0')
 		counter++;
 	return (counter);
+}
+
+int		contains(const char *str, char in)
+{
+	size_t	cnt;
+
+	cnt = 0;
+	if (str == NULL)
+		return (1);
+	while (str[cnt])
+	{
+		if (str[cnt] == in)
+			return (0);
+		cnt++;
+	}
+	return (1);
 }
 
 int		look4ko(char *you, char *exp)
