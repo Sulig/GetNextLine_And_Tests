@@ -6,7 +6,7 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 17:16:27 by sadoming          #+#    #+#             */
-/*   Updated: 2023/09/21 14:25:16 by sadoming         ###   ########.fr       */
+/*   Updated: 2023/09/21 17:07:26 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdarg.h>
 # include <stdio.h>
 # include <string.h>
-# include "../get_next_line.h"
+# include "../GetNextLine/get_next_line.h"
 
 # ifndef TBNS
 #  define TBNS 0

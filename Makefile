@@ -10,17 +10,17 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = getnextline.a
 TEST = test.out
+DIR = ./GetNextLine/
 CFLAGS = -Wall -Wextra -Werror -D BUFFER_SIZE=10
 
 # Sources:
 MAK = Makefile
-LIB = get_next_line.h get_next_line_bonus.c
+LIB = $(DIR)get_next_line.h $(DIR)get_next_line_bonus.c
 TLIB = Tests/test_getnextline.h
 
-SRC = get_next_line.c get_next_line_utils.c
-BNS = get_next_line_bonus.c get_next_line_utils_bonus.c
+SRC = $(DIR)get_next_line.c $(DIR)get_next_line_utils.c
+BNS = $(DIR)get_next_line_bonus.c $(DIR)get_next_line_utils_bonus.c
 
 TSRC = Tests/test_getnextline_main.c Tests/test_utils.c $(SRC)
 
@@ -46,13 +46,13 @@ $(TEST): $(OBJ) $(TOBJ)
 	@norminette $(SRC)
 	@norminette $(BNS)
 	@echo "\033[0;37m\n"
-	@gcc $(CFLAGS) -o $(TEST) *.o Tests/*.o
+	@gcc $(CFLAGS) -o $(TEST) $(DIR)*.o Tests/*.o
 	@echo * "\n"
 
 # ./test.out:
 test: $(TEST)
 	@leaks -atExit -- ./$(TEST)
-	@/bin/rm -f *.o
+	@/bin/rm -f $(DIR)*.o
 
 # ******************************************************************************* #
 # lldb:
@@ -77,7 +77,6 @@ clean:
 	@/bin/rm -f $(DEB)
 
 fclean: clean
-	@/bin/rm -f $(NAME)
 	@/bin/rm -frd test.out.dSYM
 	@/bin/rm -frd debug.out.dSYM
 	@/bin/rm -f .DS_Store
