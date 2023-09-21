@@ -1,4 +1,4 @@
-# Get_Next_Line
+# GetNextLine_And_Tests
 
 Resumen: El objetivo de este proyecto es simple: programar una función que devuelva una línea leída de un file descriptor.
 
