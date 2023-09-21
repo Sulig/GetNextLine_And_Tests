@@ -2,16 +2,18 @@
 
 Resumen: El objetivo de este proyecto es simple: programar una función que devuelva una línea leída de un file descriptor.
 
-** Contenido del repositorio:
-    - Get Next Line + Bonus
-    - Tests basicos + test manual *(Bonus no incluidos!)
-    - Carpeta de los archivos para testear
+// Contenido del repositorio:
+- Get Next Line + Bonus
+- Tests basicos + test manual *(Bonus no incluidos!)
+- Carpeta de los archivos para testear
     
 // Ejecutar Auto Test:
 #make test#
 
 // Ejecutar Test Manual:
-#make#
+####
+make
+####
 #./test.out + Directorio/nombreDelArchivo.txt#
 
 // Debuggeador:
