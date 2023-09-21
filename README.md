@@ -16,11 +16,11 @@ Resumen: El objetivo de este proyecto es simple: programar una función que devu
 
 // Debuggeador:
 - make debug
-- make valgrind# -> Solo funcionara si tienes valgrind!
+- make valgrind -> Solo funcionara si tienes valgrind!
 
 // Limpiar archivos innecessarios:
-- make clean# -> Limpia solo *.o y los .out
-- make fclean# -> Limpieza profunda + borrado de .out.dSYM
-- make clear# -> Igual que fclean + limpia la pantalla
+- make clean -> Limpia solo *.o y los .out
+- make fclean -> Limpieza profunda + borrado de .out.dSYM
+- make clear -> Igual que fclean + limpia la pantalla
 
 ~ Made by sadoming ~
