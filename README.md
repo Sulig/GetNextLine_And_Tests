@@ -12,8 +12,8 @@ Resumen: El objetivo de este proyecto es simple: programar una función que devu
 2. En el archivo "test_getnextline.h", cambia el directorio donde esta incluido tu "get_next_line.h"
 3. Guarda todo y ya esta listo para usar!
 
-// Ejecutar Auto Test:
-- make test
+** Comandos:
+- make test // Ejecutar Auto Test:
 
 // Ejecutar Test Manual:
 - make
