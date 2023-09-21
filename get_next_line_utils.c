@@ -6,13 +6,13 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 19:06:49 by sadoming          #+#    #+#             */
-/*   Updated: 2023/09/11 20:03:55 by sadoming         ###   ########.fr       */
+/*   Updated: 2023/09/21 16:05:25 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char *s)
+size_t	gnl_strlen(const char *s)
 {
 	size_t	cnt;
 
@@ -24,7 +24,7 @@ size_t	ft_strlen(const char *s)
 	return (cnt);
 }
 
-int	ft_contains(const char *str, char in)
+int	gnl_contains(const char *str, char in)
 {
 	size_t	cnt;
 
@@ -40,17 +40,17 @@ int	ft_contains(const char *str, char in)
 	return (1);
 }
 
-char	*ft_strjoin(char *s1, const char *s2)
+char	*gnl_join(char *s1, const char *s2)
 {
 	size_t	len;
 	size_t	cnt;
 	char	*join;
 
 	if (!s1)
-		return (ft_strdup(s2, ft_strlen(s2)));
-	join = malloc((ft_strlen(s1) + ft_strlen(s2)) + 1);
+		return (gnl_strlcpy(s2, gnl_strlen(s2)));
+	join = malloc((gnl_strlen(s1) + gnl_strlen(s2)) + 1);
 	if (!join)
-		return (ft_free(s1, 0));
+		return (gnl_free(s1, 0));
 	len = -1;
 	cnt = 0;
 	while (s1[++len])
@@ -62,7 +62,7 @@ char	*ft_strjoin(char *s1, const char *s2)
 	return (join);
 }
 
-char	*ft_strdup(const char *s1, size_t len)
+char	*gnl_strlcpy(const char *s1, size_t len)
 {
 	char	*cpy;
 	size_t	cnt;
@@ -82,7 +82,7 @@ char	*ft_strdup(const char *s1, size_t len)
 	return (cpy);
 }
 
-char	*ft_strtrim(char *str)
+char	*gnl_strcut(char *str)
 {
 	char	*trim;
 	size_t	cnt;
@@ -92,13 +92,13 @@ char	*ft_strtrim(char *str)
 	if (!str)
 		return (NULL);
 	len = 0;
-	cnt = ft_cnt_tojump(str);
-	size = ft_strlen(str + cnt);
+	cnt = gnl_cnt_tojump(str);
+	size = gnl_strlen(str + cnt);
 	if (size == 0)
-		return (ft_free(str, 0));
+		return (gnl_free(str, 0));
 	trim = malloc(sizeof(char) * size + 1);
 	if (!trim)
-		return (ft_free(str, 0));
+		return (gnl_free(str, 0));
 	while (str[cnt])
 		trim[len++] = str[cnt++];
 	trim[len] = '\0';

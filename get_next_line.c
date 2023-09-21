@@ -6,13 +6,13 @@
 /*   By: sadoming <sadoming@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 17:06:43 by sadoming          #+#    #+#             */
-/*   Updated: 2023/09/13 15:43:01 by sadoming         ###   ########.fr       */
+/*   Updated: 2023/09/21 16:01:15 by sadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_free(char *to_free, char *tmp)
+char	*gnl_free(char *to_free, char *tmp)
 {
 	if (to_free)
 		free(to_free);
@@ -25,7 +25,7 @@ char	*ft_free(char *to_free, char *tmp)
 	return (NULL);
 }
 
-size_t	ft_cnt_tojump(const char *str)
+size_t	gnl_cnt_tojump(const char *str)
 {
 	size_t	cnt;
 
@@ -47,18 +47,18 @@ char	*ft_get_readed(int fd, char *store)
 	btrd = 1;
 	tmp = malloc((BUFFER_SIZE) * sizeof(char) + 1);
 	if (!tmp)
-		return (ft_free(store, 0));
-	while (btrd > 0 && (ft_contains(store, '\n') != 0))
+		return (gnl_free(store, 0));
+	while (btrd > 0 && (gnl_contains(store, '\n') != 0))
 	{
 		btrd = read(fd, tmp, BUFFER_SIZE);
 		if (btrd == -1)
-			return (ft_free(store, tmp));
+			return (gnl_free(store, tmp));
 		if (btrd > 0)
 		{
 			tmp[btrd] = '\0';
-			store = ft_strjoin(store, tmp);
+			store = gnl_join(store, tmp);
 			if (!store)
-				return (ft_free(store, tmp));
+				return (gnl_free(store, tmp));
 		}
 	}
 	free(tmp);
@@ -75,19 +75,19 @@ char	*get_next_line(int fd)
 		return (NULL);
 	store = ft_get_readed(fd, store);
 	if (!store)
-		return (ft_free(store, 0));
-	if (ft_strlen(store) == 0)
+		return (gnl_free(store, 0));
+	if (gnl_strlen(store) == 0)
 	{
-		store = ft_free(store, 0);
+		store = gnl_free(store, 0);
 		return (NULL);
 	}
-	cnt = ft_cnt_tojump(store);
-	line = ft_strdup(store, cnt);
+	cnt = gnl_cnt_tojump(store);
+	line = gnl_strlcpy(store, cnt);
 	if (!line)
 	{
-		store = ft_free(store, 0);
+		store = gnl_free(store, 0);
 		return (NULL);
 	}
-	store = ft_strtrim(store);
+	store = gnl_strcut(store);
 	return (line);
 }
