@@ -6,7 +6,12 @@ Resumen: El objetivo de este proyecto es simple: programar una función que devu
 - Get Next Line + Bonus
 - Tests basicos + test manual *(Bonus no incluidos!)
 - Carpeta de los archivos para testear
-    
+
+!! Importante Antes de ejecutar 'make'!! ->
+1. En el Makefile cambia la variable "DIR" por el directorio de tu get_next_line
+2. En el archivo "test_getnextline.h", cambia el directorio donde esta incluido tu "get_next_line.h"
+3. Guarda todo y ya esta listo para usar!
+
 // Ejecutar Auto Test:
 - make test
 
